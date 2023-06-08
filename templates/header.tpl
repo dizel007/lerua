@@ -12,7 +12,7 @@
   <link href="css/main_table.css" rel="stylesheet">
   
 
-<TITLE>OZON - zon zon</TITLE>
+<TITLE>LERUA- a a </TITLE>
 
 </head>
 

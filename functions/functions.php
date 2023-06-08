@@ -140,13 +140,12 @@ foreach ($post_array as $products) {
         $i=$i - 1; // увеличиваем на количество товаров в упаковке
         $products['qty'] = $products['qty'] - $const_K_16;
 
-        $new_arr_list_podbora[]= array ("sky" => $products['sku'] , "name" => $products['name'] , "quantity" => $const_K_16);
 
  /* 
   7245 МЕНЕЕ 16 штук 
  */
 
-} elseif ( ($products['lmId'] == $sku_K_16 ) AND ($products['quantity'] < $const_K_16 ) ) {
+} elseif ( ($products['lmId'] == $sku_K_16 ) AND ($products['qty'] < $const_K_16 ) ) {
 
     $array_tovar['products'][0] = array(
         "sku" => $products['lmId'],
