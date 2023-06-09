@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.1.0, created on 2023-06-08 15:15:12
+/* Smarty version 4.1.0, created on 2023-06-09 13:48:30
   from 'C:\xampp\htdocs\lerua\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_6481d4608ae591_67918686',
+  'unifunc' => 'content_6483118e3ff379_46492638',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,8 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6481d4608ae591_67918686 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->compiled->nocache_hash = '8864661166481d46088cd35_69361979';
+function content_6483118e3ff379_46492638 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->compiled->nocache_hash = '16461974596483118e3d8d17_89651467';
 ?>
 <HTML>
 <head>

@@ -12,16 +12,8 @@
 
  
       <div class="col-md-4 pb-1 mt-2">
-      <label class="form-label ">Тип запроса</label>
-          <select required name="type_query" >
-              <option value="888">Сформировать отправление</option>
-              <option value="555">Напечатать этикетки</option>
-          </select>
-      </div>
-
-      <div class="col-md-4 pb-1 mt-2">
           <label class="form-label ">Дата запроса</label>
-          <input required type="date" name="date_query_ozon" value="{$date_query_lerua}">
+          <input required type="date" name="date_query_lerua" value="{$date_query_lerua}">
       </div>
 
 

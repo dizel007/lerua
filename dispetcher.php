@@ -26,7 +26,7 @@ $dop_link = '';
 $link = 'https://api.leroymerlin.ru/marketplace/merchants/v1/parcels/'.$id_parcel.$dop_link;
 
 $list_all_sending = light_query_without_data ($jwt_token, $link, 'Список всех отправлений');
-$date_for_ship = "2023-06-09";
+$date_for_ship = "2023-06-13";
 // Перебираем все отправления  и ищем новые (созданные)
 $dop_link = '/statuses';
 // echo "<pre>";
@@ -42,7 +42,7 @@ foreach ($list_all_sending as $item) {
     if ($item['status'] == 'created') {
     $new_array_create_sends[] = $item;
     }
-    if (($item['status'] == 'packingCompleted') && $item['pickup']['pickupDate'] == $date_for_ship){
+    if (($item['status'] == 'packingStarted') && $item['pickup']['pickupDate'] == $date_for_ship){
 
         // packingCompleted - нужно сделать , ЛИст подборки нужно после комплектации делать
         // packingStarted - Если посмотреть лист подборки до комплектации
@@ -80,8 +80,12 @@ $arr_catalog_tovarov[$item['lmId']] =  $item['vendorCode'];
     }
 }
 
+echo "<pre>";
+print_r($arr_catalog_tovarov);
+die();
 
 
+die('weeeeeewserwrwerwer');
 
 echo "<br>5464654674678467568567<br>";
 // Получаем массив по ID отправлению с разбивкой по грузометам и формируем ексель файл ЛИСТ ПОДБОРА
@@ -144,7 +148,7 @@ $array_s_item = light_query_without_data ($jwt_token, $link, 'Лист подб�
 
                 }
                 $sheet->setCellValue("A".$i, $shiped_posts['id']);
-                $sheet->setCellValue("B".$i, $art_catalog[$artikul]);
+                $sheet->setCellValue("B".$i, $art_catalog[$artikul]); // название товара
                 $sheet->setCellValue("C".$i, $shiped_posts['products'][0]['quantity']);
                 $sheet->getStyle("C".$i)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
                 

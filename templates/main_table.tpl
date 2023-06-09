@@ -8,46 +8,46 @@
              
               <th width="20">Нормер отправления</th>
               <th scope="col" width="20">Дата отправления</th>
-              <th scope="col" width="10">Статус отправления</th>
+              <th scope="col" width="10">Сумма отправления</th>
               <th scope="col" width="900">Продукция</th>
-              <th scope="col" width="60">Собрать</th>
+             
                  
             </tr>
          </thead>
       <tbody>
 
 {$i = 1}
- {foreach from=$posts item=post}
+
+
+ {foreach from=$new_array_create_sends item=prods}
            
           <tr class ="text14">
                 <td>{$i}</td>
              
 {* Нормер отправления *}
-   <td>{$post['posting_number']}</td> 
+<td width="100" ><b>{$prods['id']}</b></td>
 {* Дата отправления *}
-    <td>{$post['shipment_date']}</td>
+<td width="100">{$prods['pickup']['pickupDate']}</td>
 
 {* Статус отправления *}
-<td>{$post['status']}</td>
+<td width="50"> {$prods['parcelPrice']}</td>
 
 <td>
 <table class="prods_table text14">
-{foreach from=$post['products'] item=prods}
+{foreach from=$prods['products'] item=tovar}
     <tr>
    {* наименование *}
-      <td width="100" ><b>{$prods['offer_id']}</b></td>
+      <td width="100" ><b>{$tovar['vendorCode']}</b></td>
       {* наименование *}
-      <td width="840">{$prods['name']}</td>
-      <td width="50"> {$prods['quantity']}</td>
+      <td width="840">{$tovar['name']}</td>
+      <td width="50">{$tovar['qty']}</td>
     </tr>
-    
-
- {/foreach} 
+  {/foreach}   
  </table>
 </td>
 
 {* Собрать добавить в заказ *}
-                <td><a href = "make_one_zakaz.php?date_query_ozon={$date_query_ozon}&posting_number={$post['posting_number']}">CC</a></td>
+             
               
            </tr>
            {$i=$i+1}      
@@ -55,7 +55,7 @@
           </tbody>
       </table>
   </div>
+<div><a href="{$link}" >{$name_link}</a></div>
 
-  <h2><a href = "make_all_zakaz.php?date_query_ozon={$date_query_ozon}">Собрать все заказы</a></h2>
 </div>
  

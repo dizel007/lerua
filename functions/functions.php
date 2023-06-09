@@ -62,27 +62,73 @@ $ch = curl_init($link);
     return $res;
 }
 
+function light_query_without_data_with_post ($jwt_token, $link, $message) {
+  $ch = curl_init($link);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+          'x-api-key: b1VSXCMYNYr6H3h0pBLaUczXYEATcS58',
+      'Content-Type: application/json',
+      "Authorization: Bearer $jwt_token"
+      ));
+    curl_setopt($ch, CURLOPT_POST, 1);
+
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    $res = curl_exec($ch);
+  
+     $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE); // Получаем HTTP-код
+     curl_close($ch);
+    
+    $res = json_decode($res, true);
+  
+      echo     "Результат обмена [".$message."] : ".$http_code. "<br>";
+  
+      return $res;
+  }
+
+
+/*
+* Фунция формирования массива с новыми/неподтвержденными заказами
+*/
+function get_create_spisok_from_lerua($jwt_token, $smarty, $art_catalog, $ship_status) {
+  $id_parcel = "";
+  $dop_link = '';
+  $link = 'https://api.leroymerlin.ru/marketplace/merchants/v1/parcels/'.$id_parcel.$dop_link;
+  
+  $list_all_sending = light_query_without_data ($jwt_token, $link, 'Список всех отправлений');
+  // Перебираем все отправления  и ищем новые (созданные)
+  $dop_link = '/statuses';
+  // echo "<pre>";
+  foreach ($list_all_sending as $item) {
+      // смотрим статус каждого отправления 
+      $id_parcel = $item['id'];
+      $link = 'https://api.leroymerlin.ru/marketplace/merchants/v1/parcels/'.$id_parcel.$dop_link;
+  
+      $status_item = light_query_without_data ($jwt_token, $link, 'Статус отпраления');
+      // print_r($status_item);
+      $item['status'] =  $status_item[0]['name'];
+      // если отправление не подтверждено, то добавляем его в новый массив
+      if ($item['status'] == $ship_status) {
+      $new_array_create_sends[] = $item;
+      }
+  
+  }
+  // Подставляем наименование товара в массив
+  foreach ($new_array_create_sends as &$items) {
+      foreach ($items['products'] as &$prods) {
+      //  echo $prods['vendorCode']."9999<br>";
+       $prods['name'] = $art_catalog[$prods['vendorCode']];
+      
+      }
+  
+      
+  }
+  return $new_array_create_sends;
+}
 
 /*
 *Функция которая в зависимости от товара разбивает его по количеству
 */ 
-function make_right_posts_gruzomesta ($id_post, $post_array) {
-
-// разбиваем товары согласно грузоместам
-foreach ($post_array as $post) {
-    // print_r ($post);
-    $array_tovar['products'][0] = array(
-          "sku" => $post['lmId'],
-          "quantity" => $post['qty']
-        );
-
-$data_send[] = $array_tovar;
-}
-
-return $data_send;
-
-};
-
 
 function make_right_posts_gruzomesta_NEW ($id_post, $post_array) {
 $const_K_12 = 12;
